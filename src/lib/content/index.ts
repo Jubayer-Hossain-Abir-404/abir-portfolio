@@ -8,12 +8,14 @@
  * indirectly, which is how a perfectly valid import ends up underlined in red.
  */
 export {
+  getAdjacentSystems,
   getEngineering,
   getExperience,
   getFeaturedSystems,
   getNoteBySlug,
   getNotes,
   getNoteSlugs,
+  getPageCopy,
   getProfile,
   getProjects,
   getResearch,

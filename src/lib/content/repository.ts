@@ -1,6 +1,7 @@
 import engineeringData from '@/data/engineering.json'
 import experienceData from '@/data/experience.json'
 import notesData from '@/data/notes.json'
+import pagesData from '@/data/pages.json'
 import profileData from '@/data/profile.json'
 import projectsData from '@/data/projects.json'
 import researchData from '@/data/research.json'
@@ -13,6 +14,8 @@ import type {
   EngineeringGroup,
   Experience,
   Note,
+  PageCopy,
+  PageId,
   Profile,
   Project,
   Research,
@@ -37,6 +40,7 @@ const experience = experienceData satisfies Experience[]
 const engineering = engineeringData satisfies EngineeringGroup[]
 const projects = projectsData satisfies Project[]
 const notes = notesData satisfies Note[]
+const pages = pagesData satisfies Record<PageId, PageCopy>
 
 /**
  * `kind` widens to `string` on import, so it is narrowed through the guard. A
@@ -86,6 +90,11 @@ export async function getSections(): Promise<SectionCopy[]> {
   return sections
 }
 
+/** Title and lede for a standalone index page — `/work`, `/notes`. */
+export async function getPageCopy(id: PageId): Promise<PageCopy> {
+  return pages[id]
+}
+
 export async function getSocial(): Promise<Social[]> {
   return social
 }
@@ -104,6 +113,25 @@ export async function getSystemBySlug(slug: string): Promise<System | undefined>
 
 export async function getSystemSlugs(): Promise<string[]> {
   return systems.map((system) => system.slug)
+}
+
+/**
+ * The case studies either side of one, in the order `systems.json` lists them.
+ *
+ * Adjacency is a property of the collection, so it is resolved here rather than
+ * in the route — the route has one system and would have to fetch them all back
+ * to work it out. Deliberately does not wrap around: an end is worth showing as
+ * an end, and a reader who has walked the whole set should be sent to the index
+ * rather than back to the beginning.
+ */
+export async function getAdjacentSystems(
+  slug: string,
+): Promise<{ previous?: System; next?: System }> {
+  const at = systems.findIndex((system) => system.slug === slug)
+
+  if (at === -1) return {}
+
+  return { previous: systems[at - 1], next: systems[at + 1] }
 }
 
 export async function getExperience(): Promise<Experience[]> {

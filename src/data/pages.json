@@ -1,0 +1,10 @@
+{
+  "work": {
+    "title": "Every system, including the ones that never reach the front page.",
+    "lede": "Telecom messaging, microfinance approvals, workshop operations, remote infrastructure. Most of it is client work with no public deployment, so each one is written up as the architecture and the decisions rather than a screenshot."
+  },
+  "notes": {
+    "title": "Working notes on decisions worth writing down.",
+    "lede": "Benchmarks, schema choices and the reasoning behind them."
+  }
+}
