@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router'
 import { SectionHeader } from '@/components/layout/SectionHeader'
 import { Reveal } from '@/components/motion/Reveal'
-import { routes } from '@/lib/routes'
+import { routes, sectionHeadingId } from '@/lib/routes'
 import type { Note, SectionCopy } from '@/types'
 
 type NotesTeaserProps = {
@@ -24,8 +24,13 @@ const DATE_FORMAT = new Intl.DateTimeFormat('en-GB', {
  */
 export function NotesTeaser({ index, section, notes }: NotesTeaserProps) {
   return (
-    <section id={section.id} className="scroll-mt-20 pt-section">
+    <section
+      id={section.id}
+      aria-labelledby={sectionHeadingId(section.id)}
+      className="scroll-mt-20 pt-section"
+    >
       <SectionHeader
+        headingId={sectionHeadingId(section.id)}
         index={index}
         label={section.label}
         title={section.title}

@@ -1,7 +1,7 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router'
 import { Reveal } from '@/components/motion/Reveal'
-import { assets, externalLinkProps, mailto, routes } from '@/lib/routes'
+import { assets, externalLinkProps, mailto, routes, sectionHeadingId } from '@/lib/routes'
 import type { Profile, SectionCopy } from '@/types'
 
 type IntroProps = {
@@ -16,7 +16,11 @@ type IntroProps = {
  */
 export function Intro({ index, section, profile }: IntroProps) {
   return (
-    <section id={section.id} className="scroll-mt-20 pt-16 sm:pt-24">
+    <section
+      id={section.id}
+      aria-labelledby={sectionHeadingId(section.id)}
+      className="scroll-mt-20 pt-16 sm:pt-24"
+    >
       <Reveal as="p" className="meta">
         <span className="text-accent tabular-nums">{String(index).padStart(2, '0')}</span>
         <span aria-hidden className="text-muted">
@@ -27,6 +31,7 @@ export function Intro({ index, section, profile }: IntroProps) {
 
       <Reveal
         as="h1"
+        id={sectionHeadingId(section.id)}
         delay={60}
         className="mt-8 max-w-5xl text-h1 font-medium tracking-tight text-balance"
       >

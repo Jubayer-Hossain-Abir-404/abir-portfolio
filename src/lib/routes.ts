@@ -23,6 +23,18 @@ export const SECTION_IDS = {
 
 export type SectionId = (typeof SECTION_IDS)[keyof typeof SECTION_IDS]
 
+/**
+ * Id of the heading that names a spine section.
+ *
+ * A `<section>` is only exposed as a landmark when it has an accessible name,
+ * so without this the homepage is one long region and the spine — the whole
+ * organising idea of the page — is invisible to anyone navigating by landmark.
+ * Derived rather than written out so the id cannot drift from the section's.
+ */
+export function sectionHeadingId(id: SectionId) {
+  return `${id}-heading`
+}
+
 export const routes = {
   home: () => '/',
   /** A homepage anchor, addressable from any route. */
@@ -33,10 +45,15 @@ export const routes = {
   note: (slug: string) => `/notes/${slug}`,
 } as const
 
-/** Static files served from `public/`, not route-table entries. */
+/**
+ * Static files served from `public/`, not route-table entries.
+ *
+ * Social-card images are not here — they are per-page and generated at build
+ * time, so their paths are built by `ogImagePath` in `lib/seo.ts` alongside the
+ * script that writes them.
+ */
 export const assets = {
   resume: '/resume.pdf',
-  ogImage: '/og/default.png',
 } as const
 
 export function mailto(email: string) {

@@ -1,4 +1,5 @@
 import { SectionHeader } from '@/components/layout/SectionHeader'
+import { sectionHeadingId } from '@/lib/routes'
 import { Reveal } from '@/components/motion/Reveal'
 import {
   Accordion,
@@ -41,8 +42,13 @@ export function Experience({ index, section, entries }: ExperienceProps) {
   const secondary = entries.filter((entry) => entry.secondary)
 
   return (
-    <section id={section.id} className="scroll-mt-20 pt-section">
+    <section
+      id={section.id}
+      aria-labelledby={sectionHeadingId(section.id)}
+      className="scroll-mt-20 pt-section"
+    >
       <SectionHeader
+        headingId={sectionHeadingId(section.id)}
         index={index}
         label={section.label}
         title={section.title}

@@ -33,7 +33,12 @@
   --ed-fg: #111111;
   --ed-muted: #6b6b66;
   --ed-rule: #e2e1dc;
-  --ed-accent: #d2521e;
+  /* Darkened from #d2521e, which read well but measured 4.05:1 on --ed-bg and
+     3.74:1 on --ed-surface — under 4.5:1, and the accent carries link text.
+     Same hue (17.3°) and saturation (75%), lightness 47.1% → 41.6%, which
+     buys 5.02:1 and 4.64:1. The dark-theme accent already passed and is
+     unchanged. See docs/VERSION-LOG.md. */
+  --ed-accent: #b9481a;
   --ed-surface: #f2f1ed;
   --ed-destructive: #b3261e;
 

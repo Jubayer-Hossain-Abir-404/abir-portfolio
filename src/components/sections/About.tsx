@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { Portrait } from '@/components/layout/Portrait'
 import { SectionHeader } from '@/components/layout/SectionHeader'
 import { Reveal } from '@/components/motion/Reveal'
-import { externalLinkProps } from '@/lib/routes'
+import { externalLinkProps, sectionHeadingId } from '@/lib/routes'
 import type { Profile, Research, SectionCopy } from '@/types'
 
 type AboutProps = {
@@ -42,8 +42,13 @@ function ResearchEntry({ entry }: { entry: Research }) {
 
 export function About({ index, section, profile, research }: AboutProps) {
   return (
-    <section id={section.id} className="scroll-mt-20 pt-section">
+    <section
+      id={section.id}
+      aria-labelledby={sectionHeadingId(section.id)}
+      className="scroll-mt-20 pt-section"
+    >
       <SectionHeader
+        headingId={sectionHeadingId(section.id)}
         index={index}
         label={section.label}
         title={section.title}

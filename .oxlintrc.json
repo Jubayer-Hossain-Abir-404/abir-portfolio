@@ -15,6 +15,12 @@
   },
   "overrides": [
     {
+      "files": ["scripts/**"],
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
       "files": ["src/routes/**", "src/root.tsx"],
       "rules": {
         "react/only-export-components": "off",

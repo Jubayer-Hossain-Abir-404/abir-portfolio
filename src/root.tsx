@@ -27,6 +27,19 @@ export function Layout({ children }: { children: ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+        {/*
+          Tints the browser UI on mobile. Two declarations rather than one
+          because this follows the OS preference; it deliberately does not
+          follow the in-page theme toggle, which would mean scripting a <meta>
+          on every switch for a strip of chrome the visitor is not looking at.
+        */}
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafaf8" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0b0c" />
+
         <Meta />
         <Links />
         <script dangerouslySetInnerHTML={{ __html: THEME_GUARD }} />

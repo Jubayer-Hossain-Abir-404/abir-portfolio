@@ -1,4 +1,5 @@
 import { SectionHeader } from '@/components/layout/SectionHeader'
+import { sectionHeadingId } from '@/lib/routes'
 import { Reveal } from '@/components/motion/Reveal'
 import type { EngineeringGroup, SectionCopy } from '@/types'
 
@@ -15,8 +16,13 @@ type EngineeringProps = {
  */
 export function Engineering({ index, section, groups }: EngineeringProps) {
   return (
-    <section id={section.id} className="scroll-mt-20 pt-section">
+    <section
+      id={section.id}
+      aria-labelledby={sectionHeadingId(section.id)}
+      className="scroll-mt-20 pt-section"
+    >
       <SectionHeader
+        headingId={sectionHeadingId(section.id)}
         index={index}
         label={section.label}
         title={section.title}

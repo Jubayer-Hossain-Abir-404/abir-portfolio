@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import { SectionHeader } from '@/components/layout/SectionHeader'
 import { Reveal } from '@/components/motion/Reveal'
-import { externalLinkProps, mailto } from '@/lib/routes'
+import { externalLinkProps, mailto, sectionHeadingId } from '@/lib/routes'
 import type { Profile, SectionCopy, Social } from '@/types'
 
 type ContactProps = {
@@ -13,8 +13,13 @@ type ContactProps = {
 
 export function Contact({ index, section, profile, social }: ContactProps) {
   return (
-    <section id={section.id} className="scroll-mt-20 pt-section">
+    <section
+      id={section.id}
+      aria-labelledby={sectionHeadingId(section.id)}
+      className="scroll-mt-20 pt-section"
+    >
       <SectionHeader
+        headingId={sectionHeadingId(section.id)}
         index={index}
         label={section.label}
         title={section.title}

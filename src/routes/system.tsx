@@ -4,7 +4,9 @@ import { DecisionList } from '@/components/work/DecisionList'
 import { FigureRow } from '@/components/work/FigureRow'
 import { Passage, Prose } from '@/components/work/Passage'
 import { SystemDiagram } from '@/components/work/diagrams'
-import { getAdjacentSystems, getSystemBySlug } from '@/lib/content'
+import { getAdjacentSystems, getProfile, getSystemBySlug } from '@/lib/content'
+import { routes } from '@/lib/routes'
+import { ogKeys, pageMeta, titleFor } from '@/lib/seo'
 import type { Route } from './+types/system'
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -14,16 +16,23 @@ export async function loader({ params }: Route.LoaderArgs) {
     throw new Response('Not found', { status: 404 })
   }
 
-  return { system, ...(await getAdjacentSystems(params.slug)) }
+  const [adjacent, profile] = await Promise.all([getAdjacentSystems(params.slug), getProfile()])
+
+  return { system, profile, ...adjacent }
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const system = loaderData?.system
+  const { system, profile } = loaderData
 
-  return [
-    { title: `${system?.name ?? 'Case study'} — Md. Jubayer Hossain Abir` },
-    { name: 'description', content: system?.summary },
-  ]
+  return pageMeta({
+    title: titleFor(system.name, profile.name),
+    description: system.summary,
+    path: routes.system(system.slug),
+    siteName: profile.name,
+    ogKey: ogKeys.system(system.slug),
+    // A case study is a written piece with an author, not a site section.
+    type: 'article',
+  })
 }
 
 /**

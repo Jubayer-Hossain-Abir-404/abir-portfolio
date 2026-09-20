@@ -1,4 +1,6 @@
-import { getNoteBySlug } from '@/lib/content'
+import { getNoteBySlug, getProfile } from '@/lib/content'
+import { routes } from '@/lib/routes'
+import { ogKeys, pageMeta, titleFor } from '@/lib/seo'
 import type { Route } from './+types/note'
 
 /**
@@ -16,16 +18,20 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
     throw new Response('Not found', { status: 404 })
   }
 
-  return { note }
+  return { note, profile: await getProfile() }
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const note = loaderData?.note
+  const { note, profile } = loaderData
 
-  return [
-    { title: `${note?.title ?? 'Note'} — Md. Jubayer Hossain Abir` },
-    { name: 'description', content: note?.summary },
-  ]
+  return pageMeta({
+    title: titleFor(note.title, profile.name),
+    description: note.summary,
+    path: routes.note(note.slug),
+    siteName: profile.name,
+    ogKey: ogKeys.note(note.slug),
+    type: 'article',
+  })
 }
 
 export default function NoteRoute({ loaderData }: Route.ComponentProps) {

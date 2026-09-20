@@ -1,29 +1,32 @@
 import { Reveal } from '@/components/motion/Reveal'
 import { OpenSourceStrip } from '@/components/work/OpenSourceStrip'
 import { SystemIndexRow } from '@/components/work/SystemIndexRow'
-import { getPageCopy, getProjects, getSystems } from '@/lib/content'
+import { getPageCopy, getProfile, getProjects, getSystems } from '@/lib/content'
+import { routes } from '@/lib/routes'
+import { ogKeys, pageMeta, titleFor } from '@/lib/seo'
 import type { Route } from './+types/work'
 
 export async function loader() {
-  const [systems, projects, copy] = await Promise.all([
+  const [systems, projects, copy, profile] = await Promise.all([
     getSystems(),
     getProjects(),
     getPageCopy('work'),
+    getProfile(),
   ])
 
-  return { systems, projects, copy }
+  return { systems, projects, copy, profile }
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  return [
-    { title: 'Work — Md. Jubayer Hossain Abir' },
-    {
-      name: 'description',
-      content:
-        loaderData?.copy.lede ??
-        'Systems built across telecom messaging, microfinance, workshop and fleet operations.',
-    },
-  ]
+  const { copy, profile } = loaderData
+
+  return pageMeta({
+    title: titleFor('Work', profile.name),
+    description: copy.lede,
+    path: routes.work(),
+    siteName: profile.name,
+    ogKey: ogKeys.work,
+  })
 }
 
 /**

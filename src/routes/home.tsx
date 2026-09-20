@@ -16,6 +16,8 @@ import {
   getSections,
   getSocial,
 } from '@/lib/content'
+import { routes } from '@/lib/routes'
+import { ogKeys, pageMeta, personJsonLd } from '@/lib/seo'
 import type { Route } from './+types/home'
 
 export async function loader() {
@@ -52,11 +54,17 @@ export async function loader() {
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
-  const profile = loaderData?.profile
+  const { profile, social } = loaderData
 
   return [
-    { title: `${profile?.name ?? 'Portfolio'} — ${profile?.role ?? ''}` },
-    { name: 'description', content: profile?.lead },
+    ...pageMeta({
+      title: `${profile.name} — ${profile.role}`,
+      description: profile.lead,
+      path: routes.home(),
+      siteName: profile.name,
+      ogKey: ogKeys.home,
+    }),
+    personJsonLd(profile, social),
   ]
 }
 

@@ -1,17 +1,27 @@
+# Canonical URLs, og:image and sitemap.xml all need the site's absolute origin,
+# which a static build cannot work out for itself. `$URL` is Netlify's own
+# production URL for this site, so the value is correct without anybody
+# maintaining a domain constant in the repo — including after a custom domain
+# is attached.
 [build]
-  command = "npm run build"
+  command = "VITE_SITE_URL=$URL npm run build"
   publish = "build/client"
 
 [build.environment]
   NODE_VERSION = "24"
 
-# Prerendered routes are real files on disk, so they are served directly. This
-# fallback only catches paths that were never generated, which then render the
-# app's own 404 rather than Netlify's.
+# Prerendered routes are real files on disk, so they are served directly and
+# never reach this rule. It only catches paths that were never generated, which
+# then render the app's own 404 rather than Netlify's.
+#
+# `status = 404`, not 200: every route the app has is prerendered, so anything
+# landing here genuinely does not exist. Returning 200 with a 404 page is a soft
+# 404 — the page gets indexed as real content and the error is invisible to
+# monitoring. The visitor still gets the styled ErrorBoundary either way.
 [[redirects]]
   from = "/*"
   to = "/__spa-fallback.html"
-  status = 200
+  status = 404
 
 [[headers]]
   for = "/*"
@@ -26,3 +36,17 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Deploy previews and branch builds carry the production canonical URL, so
+# without this a crawler could index a preview as a duplicate of the real site.
+[context.deploy-preview]
+  [[context.deploy-preview.headers]]
+    for = "/*"
+    [context.deploy-preview.headers.values]
+      X-Robots-Tag = "noindex"
+
+[context.branch-deploy]
+  [[context.branch-deploy.headers]]
+    for = "/*"
+    [context.branch-deploy.headers.values]
+      X-Robots-Tag = "noindex"
