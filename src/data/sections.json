@@ -1,0 +1,41 @@
+[
+  {
+    "id": "intro",
+    "label": "Intro"
+  },
+  {
+    "id": "systems",
+    "label": "Selected systems",
+    "title": "The systems I've led, and what each one cost to get right.",
+    "lede": "Most of this is client work with no public deployment, so the architecture and the decisions stand in for the screenshots."
+  },
+  {
+    "id": "engineering",
+    "label": "Engineering",
+    "title": "What I reach for, grouped by the problem it solves.",
+    "lede": "Tools I have shipped and maintained in production, not a checklist of everything I have opened once."
+  },
+  {
+    "id": "experience",
+    "label": "Experience",
+    "title": "Production systems, mostly where downtime has a cost.",
+    "lede": "Payroll, loan disbursement, delivery schedules — the kind of software where a bad night is somebody's actual problem."
+  },
+  {
+    "id": "notes",
+    "label": "Engineering notes",
+    "title": "Working notes on decisions worth writing down.",
+    "lede": "Benchmarks, schema choices and the reasoning behind them."
+  },
+  {
+    "id": "about",
+    "label": "About",
+    "title": "Full-stack, with the weight on the back end."
+  },
+  {
+    "id": "contact",
+    "label": "Contact",
+    "title": "Open to engineering roles.",
+    "lede": "The fastest route is email. I read everything and reply to anything specific."
+  }
+]

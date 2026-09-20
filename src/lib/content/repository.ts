@@ -4,9 +4,11 @@ import notesData from '@/data/notes.json'
 import profileData from '@/data/profile.json'
 import projectsData from '@/data/projects.json'
 import researchData from '@/data/research.json'
+import sectionsData from '@/data/sections.json'
 import socialData from '@/data/social.json'
 import systemsData from '@/data/systems.json'
 import { isResearchKind } from '@/types/research'
+import { isSectionId } from '@/types/section'
 import type {
   EngineeringGroup,
   Experience,
@@ -14,6 +16,7 @@ import type {
   Profile,
   Project,
   Research,
+  SectionCopy,
   Social,
   System,
 } from '@/types'
@@ -56,8 +59,31 @@ const research: Research[] = researchData.map((entry) => {
   }
 })
 
+/** Same widening problem as `research.kind`, narrowed the same way. */
+const sections: SectionCopy[] = sectionsData.map((entry) => {
+  if (!isSectionId(entry.id)) {
+    throw new Error(`sections.json: unknown section id "${entry.id}"`)
+  }
+
+  return {
+    id: entry.id,
+    label: entry.label,
+    title: entry.title,
+    lede: entry.lede,
+  }
+})
+
 export async function getProfile(): Promise<Profile> {
   return profile
+}
+
+/**
+ * Homepage spine copy, in render order. Position determines the number, so
+ * reordering or cutting a section here is all it takes — nothing renumbers by
+ * hand.
+ */
+export async function getSections(): Promise<SectionCopy[]> {
+  return sections
 }
 
 export async function getSocial(): Promise<Social[]> {

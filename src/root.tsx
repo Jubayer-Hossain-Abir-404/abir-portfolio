@@ -1,5 +1,8 @@
 import type { ReactNode } from 'react'
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
+import { Footer } from '@/components/layout/Footer'
+import { Header } from '@/components/layout/Header'
+import { getNotes, getProfile, getSocial } from '@/lib/content'
 import type { Route } from './+types/root'
 import './styles/index.css'
 
@@ -43,8 +46,28 @@ export function Layout({ children }: { children: ReactNode }) {
   )
 }
 
-export default function App() {
-  return <Outlet />
+/**
+ * Chrome data lives on the root route so the header and footer prerender with
+ * real content on every page, rather than being filled in after hydration.
+ */
+export async function loader() {
+  const [profile, social, notes] = await Promise.all([getProfile(), getSocial(), getNotes()])
+
+  return { profile, social, hasNotes: notes.length > 0 }
+}
+
+export default function App({ loaderData }: Route.ComponentProps) {
+  const { profile, social, hasNotes } = loaderData
+
+  return (
+    <div className="flex min-h-dvh flex-col">
+      <Header shortName={profile.shortName} role={profile.role} hasNotes={hasNotes} />
+      <div className="flex-1">
+        <Outlet />
+      </div>
+      <Footer name={profile.name} location={profile.location} social={social} />
+    </div>
+  )
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
