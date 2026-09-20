@@ -1,0 +1,28 @@
+[
+  {
+    "title": "Bangla Image Captioning Using Xception and LSTM",
+    "kind": "thesis",
+    "year": "2021",
+    "venue": "East West University",
+    "description": "Undergraduate thesis generating Bangla captions for images, pairing an Xception CNN encoder with an LSTM decoder over Bangla GloVe embeddings.",
+    "links": [
+      {
+        "label": "Repository",
+        "href": "https://github.com/Jubayer-Hossain-Abir-404/Bangla-Image-Captioning-Using-Xception-and-LSTM-Model"
+      }
+    ]
+  },
+  {
+    "title": "Parkinson Disease Detection: Using XGBoost Algorithm to Detect Early Onset Parkinson Disease",
+    "kind": "publication",
+    "year": "2020",
+    "venue": "ResearchGate",
+    "description": "Co-authored study applying XGBoost to early-onset Parkinson's detection.",
+    "links": [
+      {
+        "label": "Paper",
+        "href": "https://www.researchgate.net/publication/354835987_Parkinson_Disease_Detection_Using_XGBoost_Algorithm_to_Detect_Early_Onset_Parkinson_Disease"
+      }
+    ]
+  }
+]

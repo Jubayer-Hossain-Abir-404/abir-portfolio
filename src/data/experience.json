@@ -1,0 +1,61 @@
+[
+  {
+    "org": "Analyzen Bangladesh Ltd.",
+    "role": "Senior Software Engineer",
+    "period": "Sep 2025 — present",
+    "location": "Dhaka, Bangladesh",
+    "current": true,
+    "bullets": [
+      "Lead developer on Conneczen, an A2P SMS aggregation platform carrying up to 1.2 million messages a month, owning architecture, scalability and service reliability.",
+      "Reduced dependency on third-party SMS aggregators and the operational cost that came with them, while keeping client-facing delivery reliable through proactive monitoring and log analysis.",
+      "Senior developer on Microzen, a 360° microfinance system, leading the Admin and MIS modules and contributing to IMS.",
+      "Designed the multi-level approval workflow — notifications, returns, rejections and RBAC-based access — and resolved edge cases around step-based edit and delete permissions, configuration versioning and organisation-hierarchy routing.",
+      "Built an automated data extraction pipeline using OCR."
+    ]
+  },
+  {
+    "org": "CodersBucket Ltd.",
+    "role": "Software Engineer",
+    "period": "Nov 2023 — Sep 2025",
+    "location": "Dhaka, Bangladesh",
+    "bullets": [
+      "Led the technical implementation of a multi-language survey platform with configurable attributes, questions and answer options, delivered within the committed client timeline.",
+      "Built an AI-powered university scholarship prediction platform on GPT-4.0 and Gemini 1.0 Pro, with rate limiting, job management, token-limit handling and multi-level fallback to keep cost and failure contained.",
+      "Contributed to an AI-powered gym management SaaS serving both gyms and personal trainers across web and mobile, including centralised activity logging on MongoDB. The product won recognition through a Canada-based startup award.",
+      "Strengthened application security and added usage analytics for a US-market destination wedding platform.",
+      "Implemented attendance management with ZKTeco device integration and built leave management against a dense set of business rules."
+    ]
+  },
+  {
+    "org": "NexKraft Limited",
+    "role": "Software Engineer",
+    "period": "Nov 2022 — Oct 2023",
+    "location": "Dhaka, Bangladesh",
+    "bullets": [
+      "Designed and built a workshop management system single-handedly, covering the full job lifecycle with stage transitions driven by real-time shop-floor conditions. It is in active use at BRAC.",
+      "Delivered the project inside a short timeline and was recognised for the contribution.",
+      "Built backend APIs for a Turkey-based vehicle penalty system, and maintained a fleet transport management system in production.",
+      "Integrated the BanglaTrack API for driver tracking and fuel-usage monitoring in the driver application.",
+      "Implemented bus ticketing and vehicle requisition workflows on queued jobs, events and notifications to keep long-running operations off the request path."
+    ]
+  },
+  {
+    "org": "Bangla Puzzle Limited",
+    "role": "Intern Web Developer",
+    "period": "Apr 2022 — Jul 2022",
+    "location": "Dhaka, Bangladesh",
+    "secondary": true,
+    "bullets": ["Worked on government websites, including NIDCH and TBHSD."]
+  },
+  {
+    "org": "Ghorami Technology",
+    "role": "Trainee Web Developer",
+    "period": "Sep 2021 — Mar 2022",
+    "location": "Dhaka, Bangladesh",
+    "secondary": true,
+    "bullets": [
+      "Built an online newspaper and an e-commerce backend.",
+      "Built an employee workflow management system as a Windows desktop application on the .NET Framework."
+    ]
+  }
+]

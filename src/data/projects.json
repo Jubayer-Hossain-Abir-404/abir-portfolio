@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Spring Boot vs Express benchmark",
+    "repo": "https://github.com/Jubayer-Hossain-Abir-404/java-springboot-vs-express-js-benchmark-test-",
+    "description": "Load testing the same PostgreSQL-backed workload on Java Spring Boot and Express with autocannon.",
+    "stack": ["Java", "Spring Boot", "Express", "PostgreSQL", "autocannon"],
+    "relevance": "The evidence behind choosing Node for Conneczen. The decision is checkable rather than asserted."
+  },
+  {
+    "name": "PHP Job Queue System",
+    "repo": "https://github.com/Jubayer-Hossain-Abir-404/php-queue-system",
+    "description": "A job queue and background processor built in raw PHP on MySQL, with Symfony Console for command-line management.",
+    "stack": ["PHP", "MySQL", "Symfony Console"],
+    "relevance": "Queue mechanics built from primitives rather than pulled from a framework — job creation, execution, retries and process handling."
+  },
+  {
+    "name": "Organogram",
+    "repo": "https://github.com/Jubayer-Hossain-Abir-404/organogram",
+    "description": "Generates an organisation chart of employees, departments and roles from a relational structure.",
+    "stack": ["PHP", "MySQL"],
+    "relevance": "The same hierarchy-traversal problem that later drove Microzen's approval routing, solved years earlier at a smaller scale."
+  },
+  {
+    "name": "Dynamic Form Builder",
+    "repo": "https://github.com/Jubayer-Hossain-Abir-404/dynamic_form_builder",
+    "description": "Builds forms from configurable field definitions rather than hard-coded markup.",
+    "stack": ["Django", "HTMX", "Tailwind CSS"],
+    "relevance": "Configurable-schema UI, which is the shape of the multi-language survey platform built later at CodersBucket."
+  },
+  {
+    "name": "Restaurant Location Viewer",
+    "repo": "https://github.com/Jubayer-Hossain-Abir-404/restaurant-location-viewer-using-nextjs-react-material-ui-mapbox",
+    "description": "Map-based restaurant browser integrating a REST API with interactive Mapbox visualisation.",
+    "stack": ["Next.js", "React", "Material UI", "Mapbox"],
+    "relevance": "Third-party data and mapping integration with a responsive interface."
+  }
+]

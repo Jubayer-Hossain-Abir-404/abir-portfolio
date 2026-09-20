@@ -1,0 +1,25 @@
+[
+  {
+    "label": "GitHub",
+    "href": "https://github.com/Jubayer-Hossain-Abir-404",
+    "handle": "Jubayer-Hossain-Abir-404",
+    "primary": true
+  },
+  {
+    "label": "LinkedIn",
+    "href": "https://www.linkedin.com/in/md-jubayer-hossain-abir-31394720b/",
+    "handle": "md-jubayer-hossain-abir",
+    "primary": true
+  },
+  {
+    "label": "Email",
+    "href": "mailto:mjh.jubayerhossain@gmail.com",
+    "handle": "mjh.jubayerhossain@gmail.com",
+    "primary": true
+  },
+  {
+    "label": "Résumé",
+    "href": "/resume.pdf",
+    "primary": false
+  }
+]

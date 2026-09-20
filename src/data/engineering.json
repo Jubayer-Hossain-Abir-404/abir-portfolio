@@ -1,0 +1,68 @@
+[
+  {
+    "group": "Backend",
+    "items": [
+      "NestJS",
+      "Laravel",
+      "Spring Boot",
+      "PHP",
+      "Node.js",
+      "REST API design",
+      "Authentication & RBAC",
+      "Queues & background jobs"
+    ]
+  },
+  {
+    "group": "Frontend",
+    "items": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Inertia.js",
+      "Tailwind CSS",
+      "PrimeReact",
+      "Material UI"
+    ]
+  },
+  {
+    "group": "Data",
+    "items": [
+      "PostgreSQL",
+      "MySQL",
+      "MongoDB",
+      "Redis",
+      "Schema design",
+      "Query optimisation",
+      "Table partitioning",
+      "Replication"
+    ]
+  },
+  {
+    "group": "Infrastructure",
+    "items": [
+      "Docker",
+      "Docker Swarm",
+      "CI/CD",
+      "Load balancing",
+      "RabbitMQ",
+      "Application & server monitoring",
+      "Production troubleshooting"
+    ]
+  },
+  {
+    "group": "Practice",
+    "items": [
+      "System design",
+      "Approval workflow modelling",
+      "Performance optimisation",
+      "Code review",
+      "Unit & integration testing",
+      "API documentation",
+      "Refactoring"
+    ]
+  },
+  {
+    "group": "Integrations",
+    "items": ["OpenAI", "Gemini", "Stripe", "SSLCOMMERZ", "ZKTeco", "Slack", "ClickUp", "Trello"]
+  }
+]

@@ -1,0 +1,204 @@
+[
+  {
+    "slug": "conneczen",
+    "name": "Conneczen",
+    "subtitle": "A2P SMS aggregation platform",
+    "org": "Analyzen Bangladesh Ltd.",
+    "period": "Sep 2025 — present",
+    "role": "Lead Developer",
+    "featured": true,
+    "confidential": true,
+    "stack": [
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker Swarm",
+      "Load balancing",
+      "Replication",
+      "Table partitioning"
+    ],
+    "diagram": "conneczen",
+    "summary": "A messaging platform that routes application-to-person SMS between client systems and telecom providers, built to take the aggregation layer in-house.",
+    "problem": "Client messaging ran through third-party SMS aggregators. That meant paying for every message twice over — once in per-message cost, once in the operational dependency of not owning the delivery path. When a provider degraded, there was no position from which to diagnose it, only a ticket to raise. The platform had to absorb the same traffic directly while staying reliable enough that clients never noticed the change.",
+    "approach": "A NestJS service sits between client applications and the downstream providers, owning authentication, rate limiting, queueing and delivery tracking. PostgreSQL holds both operational state and the message log, with the log partitioned so that write volume does not degrade reporting. Replication separates reporting reads from the write path, and load balancing spreads the API across instances deployed on Docker Swarm. Monitoring and log analysis are treated as part of the service rather than an afterthought, because provider problems surface as patterns before they surface as failures.",
+    "decisions": [
+      {
+        "title": "NestJS over Spring Boot",
+        "body": "Both were evaluated against the real workload rather than on reputation. The traffic profile here is many small, I/O-bound requests — a fan-out to provider APIs, not computation — which is the shape Node's event loop handles well. NestJS also matched the team's existing TypeScript fluency, which shortens the distance between a production incident and someone who can read the stack trace.",
+        "tradeoff": "Gives up the JVM's maturity in long-running throughput workloads and its threading model. The benchmark backing this decision is public, so the reasoning can be checked rather than taken on trust."
+      },
+      {
+        "title": "Partitioning the message log",
+        "body": "Message logs grow without bound and are the one table every report touches. Partitioning keeps writes landing in a small active partition while historical queries prune to the ranges they actually need, so reporting cost stays flat as the archive grows.",
+        "tradeoff": "Adds partition maintenance and makes some query plans harder to reason about. Queries that do not filter on the partition key get slower, not faster, so the access patterns had to be settled before the scheme was."
+      },
+      {
+        "title": "Replication to separate reporting from delivery",
+        "body": "Reporting queries are heavy, bursty and not latency-critical. Message delivery is the opposite. Pointing reporting at a replica keeps an expensive dashboard query from competing with the traffic that clients are paying for.",
+        "tradeoff": "Reporting reads are eventually consistent, so figures can lag the write path by the replication delay. That is acceptable for reporting and would not be for delivery state."
+      },
+      {
+        "title": "Monitoring as part of the service",
+        "body": "Owning the aggregation layer means owning the failure modes that used to be someone else's. Provider degradation, credential expiry and queue backpressure are watched directly through application and server logs, so problems are found by inspection rather than by client complaint.",
+        "tradeoff": "Real operational time goes into keeping signals meaningful. Alerting that cries wolf is worse than none, so thresholds need revisiting as traffic patterns change."
+      }
+    ],
+    "figures": [
+      {
+        "value": "1.2M",
+        "label": "messages per month",
+        "source": "CV, Sept 2026"
+      },
+      {
+        "value": "120K",
+        "label": "SMS per day",
+        "source": "Confirmed by Abir"
+      },
+      {
+        "value": "4,700",
+        "label": "SMS per minute, load tested",
+        "source": "Confirmed by Abir"
+      }
+    ],
+    "links": []
+  },
+  {
+    "slug": "microzen",
+    "name": "Microzen",
+    "subtitle": "360° microfinance system",
+    "org": "Analyzen Bangladesh Ltd.",
+    "period": "Sep 2025 — present",
+    "role": "Senior Developer — Admin & MIS modules",
+    "featured": true,
+    "confidential": true,
+    "stack": ["Laravel", "React", "MySQL", "RBAC", "Approval workflows"],
+    "diagram": "microzen",
+    "summary": "A microfinance platform covering loan and member operations, where the hard part was not the finance but modelling the organisation that approves it.",
+    "problem": "Microfinance operations are governed by hierarchy. A change does not simply happen — it is proposed at a branch, reviewed at a region, approved at a head office, and any step can return it, reject it or amend it. Encoding that faithfully means the approval system has to understand the organisation chart, not just a status column. The Admin module compounds this, because it governs configuration that other modules depend on, so a change there is retroactive by nature.",
+    "approach": "Approvals are modelled as multi-level flows where each step knows its position in the organisation hierarchy, who it notifies, and what returning or rejecting means for the steps already completed. Access is RBAC-driven throughout, so what a user can edit depends on both their role and the state of the record in front of them. Configuration data is versioned rather than overwritten, so historical records keep resolving against the settings that were in force when they were created.",
+    "decisions": [
+      {
+        "title": "Versioning configuration instead of overwriting it",
+        "body": "System configuration — service hours, rates, structural settings — is referenced by records that outlive it. Overwriting a value silently rewrites history for every record that points at it. Versioning keeps each record resolving against the configuration that applied when it was made.",
+        "tradeoff": "Every read of configuration has to resolve the right version, which complicates queries and makes the data model larger than a settings table would be."
+      },
+      {
+        "title": "Step-based edit and delete permissions",
+        "body": "Whether a record can be edited depends on how far through approval it is. Editing freely before the first approval is fine; editing after a regional sign-off invalidates that sign-off. Permissions are evaluated against the current step rather than the user's role alone.",
+        "tradeoff": "Permission logic moves out of a simple role check into state that has to be evaluated per record, which is harder to cache and harder to reason about in review."
+      },
+      {
+        "title": "Routing notifications through the organisation hierarchy",
+        "body": "A pending approval is only useful to the person who can act on it. Notifications resolve against the hierarchy so they reach the right level, rather than broadcasting to a role and relying on someone to claim it.",
+        "tradeoff": "Ties the notification system to the accuracy of the organisation structure. A misplaced branch in the hierarchy becomes a silent delivery failure rather than a visible error."
+      }
+    ],
+    "figures": [],
+    "links": []
+  },
+  {
+    "slug": "ocr-extraction-pipeline",
+    "name": "OCR extraction pipeline",
+    "subtitle": "Automated document data extraction",
+    "org": "Analyzen Bangladesh Ltd.",
+    "period": "2026",
+    "role": "Senior Software Engineer",
+    "featured": true,
+    "confidential": true,
+    "stack": ["OCR"],
+    "diagram": null,
+    "summary": "An automated pipeline that turns documents into structured data, removing a manual entry step from the operational path.",
+    "problem": "Operational data arrived as documents and had to be keyed in by hand — slow, expensive to scale, and a source of transcription errors that surface much later as data quality problems.",
+    "approach": "Documents are processed through OCR and mapped into structured records that downstream systems can consume directly, replacing the manual entry step.",
+    "decisions": [],
+    "figures": [],
+    "links": []
+  },
+  {
+    "slug": "wordpress-site-manager",
+    "name": "WordPress Site Manager",
+    "subtitle": "Remote provisioning and monitoring for Dockerised WordPress",
+    "org": "Personal project",
+    "period": "2025",
+    "role": "Sole developer",
+    "featured": true,
+    "confidential": false,
+    "stack": ["Laravel", "Inertia.js", "PHP", "Docker", "phpseclib", "Queues"],
+    "diagram": "wordpress-site-manager",
+    "summary": "A control plane that provisions, manages and monitors Dockerised WordPress instances on remote servers over SSH. The one system here whose source can be read in full.",
+    "problem": "Running several WordPress sites across remote servers means repeating the same sequence by hand every time: provision a container, wire the database, configure the stack, then remember to check it is still alive. The repetition is error-prone and the monitoring rarely happens.",
+    "approach": "A Laravel and Inertia.js application drives remote Docker hosts over SSH using phpseclib, treating container orchestration as something to be scripted once and reused. Provisioning is expressed as a Docker Compose structure applied to the target server. Long-running work goes through queues so the interface stays responsive, and a monitoring subsystem reports on site state rather than leaving it to be discovered.",
+    "decisions": [
+      {
+        "title": "SSH and phpseclib rather than an agent",
+        "body": "Managing remote hosts over SSH means the target servers need nothing installed beyond Docker. There is no agent to deploy, version or keep running, which matters when the servers are not all under the same management.",
+        "tradeoff": "Every operation pays SSH connection overhead, and failure handling has to cope with a transport that can drop mid-command rather than an API that returns a status."
+      },
+      {
+        "title": "Queued provisioning",
+        "body": "Provisioning a site takes long enough that holding an HTTP request open for it is the wrong model. Pushing the work onto a queue keeps the interface responsive and makes retries a property of the job rather than of the user clicking again.",
+        "tradeoff": "Introduces a worker that has to be running and observed. Work that fails silently in a queue is harder to notice than work that fails in front of the user."
+      }
+    ],
+    "figures": [],
+    "links": [
+      {
+        "label": "Source",
+        "href": "https://github.com/Jubayer-Hossain-Abir-404/simple-wp-site-manager"
+      }
+    ]
+  },
+  {
+    "slug": "workshop-management-system",
+    "name": "Workshop Management System",
+    "subtitle": "Job lifecycle management for vehicle workshops",
+    "org": "NexKraft Limited",
+    "period": "2022 — 2023",
+    "role": "Sole designer and developer",
+    "featured": false,
+    "confidential": true,
+    "stack": ["Laravel", "MySQL", "Workflow modelling"],
+    "diagram": "workshop-management-system",
+    "summary": "A system covering the full workshop job lifecycle, from intake through to completion. Designed and built single-handedly, and in active use at BRAC.",
+    "problem": "Workshop jobs do not move through fixed stages. A vehicle enters for one repair, a second fault is found mid-service, parts do not arrive, work is paused and resumed. A rigid pipeline forces staff to either lie to the system or stop using it.",
+    "approach": "The workflow was built so operations can move between stages according to what is actually happening on the floor, rather than following a single prescribed path. The job, not the stage, is the unit the system tracks — so a job that goes backwards is a normal transition rather than an exception to be worked around.",
+    "decisions": [
+      {
+        "title": "Flexible stage transitions over a fixed pipeline",
+        "body": "Modelling the workshop as a state machine with permitted transitions, rather than a linear pipeline, meant the software matched how the work already ran. Staff did not have to invent workarounds to record reality.",
+        "tradeoff": "A permissive transition model makes reporting harder — 'time in stage' is no longer a simple subtraction — and pushes validation into business rules rather than structure."
+      }
+    ],
+    "figures": [],
+    "links": []
+  },
+  {
+    "slug": "scholarship-prediction",
+    "name": "Scholarship Prediction Platform",
+    "subtitle": "LLM-driven university scholarship matching",
+    "org": "CodersBucket Ltd.",
+    "period": "2023 — 2025",
+    "role": "Software Engineer",
+    "featured": false,
+    "confidential": true,
+    "stack": ["GPT-4.0", "Gemini 1.0 Pro", "Prompt engineering", "Rate limiting", "Job queues"],
+    "diagram": "scholarship-prediction",
+    "summary": "A platform that predicts university scholarship matches using large language models, built around the assumption that the model provider will fail or throttle.",
+    "problem": "Building on a hosted LLM means building on a dependency that rate-limits, times out, changes behaviour and charges per token. Treating the happy path as the design is how these products become both expensive and unreliable at the same time.",
+    "approach": "Prediction work runs through managed jobs rather than inline requests, with rate limiting to keep usage inside quota and token-limit handling to prevent oversized inputs from failing late. Multi-level fallback means a failure at one provider degrades to another rather than to an error page — GPT-4.0 and Gemini 1.0 Pro both sit behind the same interface.",
+    "decisions": [
+      {
+        "title": "Multi-level provider fallback",
+        "body": "A single model provider is a single point of failure with no SLA you control. Putting more than one behind a common interface turns an outage into degraded output rather than downtime.",
+        "tradeoff": "Output differs between providers, so the system has to tolerate inconsistent quality and phrasing. Prompts that are tuned for one model rarely transfer cleanly to another."
+      },
+      {
+        "title": "Jobs instead of inline inference",
+        "body": "Model calls are slow and failure-prone. Running them as managed jobs makes retries, rate limiting and token budgeting properties of the pipeline rather than concerns scattered through request handlers.",
+        "tradeoff": "The user no longer gets an immediate answer, so the product has to be designed around results arriving later."
+      }
+    ],
+    "figures": [],
+    "links": []
+  }
+]

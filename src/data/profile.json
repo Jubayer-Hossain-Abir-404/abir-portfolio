@@ -1,0 +1,27 @@
+{
+  "name": "Md. Jubayer Hossain Abir",
+  "shortName": "Abir",
+  "role": "Senior Software Engineer",
+  "headline": "I build systems, not just features.",
+  "lead": "Full-stack engineer working across backend architecture, API design, database performance and production infrastructure — from system design through to deployment and the troubleshooting that follows.",
+  "location": "Dhaka, Bangladesh",
+  "availability": "Open to engineering roles",
+  "experienceSummary": "Close to five years building production software across telecom messaging, microfinance, fleet and HR systems.",
+  "email": "mjh.jubayerhossain@gmail.com",
+  "resumePath": "/resume.pdf",
+  "portrait": {
+    "src": "/media/portrait.jpg",
+    "alt": "Portrait of Md. Jubayer Hossain Abir",
+    "caption": "Dhaka, Bangladesh"
+  },
+  "about": [
+    "I work on the parts of a product that have to keep running: the API that absorbs the traffic, the schema that still answers quickly once the table is large, the deployment that survives a bad night. Most of what I have built has been for organisations where a failure is somebody's payroll, loan disbursement or delivery schedule.",
+    "I lead development on Conneczen, an A2P SMS aggregation platform where the engineering problem is sustained throughput and provider reliability rather than features. Alongside it I work as a senior developer on Microzen, a microfinance system whose approval workflows have to model real organisational hierarchies — a harder modelling problem than it first appears.",
+    "I like being the person who can take a business requirement through the whole path — design the backend, model the data, build the interface, deploy it, and then fix it when production disagrees with the plan."
+  ],
+  "education": {
+    "degree": "B.Sc. in Computer Science and Engineering",
+    "institution": "East West University",
+    "period": "2017 — 2021"
+  }
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "slug": "spring-boot-vs-express-under-load",
+    "title": "Spring Boot vs Express under load: why Conneczen runs on Node",
+    "date": "2026-09-20",
+    "summary": "The same PostgreSQL-backed workload, benchmarked on both runtimes with autocannon, and what the numbers actually justified.",
+    "tags": ["Benchmarking", "Node.js", "Spring Boot", "PostgreSQL"],
+    "readingMinutes": 8,
+    "published": false
+  },
+  {
+    "slug": "partitioning-postgres-for-high-volume-logs",
+    "title": "Partitioning PostgreSQL for high-volume message logs",
+    "date": "2026-09-20",
+    "summary": "What changes when the log table grows faster than everything else, and why the access pattern has to be settled before the partition key.",
+    "tags": ["PostgreSQL", "Partitioning", "Scale"],
+    "readingMinutes": 9,
+    "published": false
+  },
+  {
+    "slug": "approval-workflows-that-survive-org-hierarchies",
+    "title": "An approval workflow engine that survives real org hierarchies",
+    "date": "2026-09-20",
+    "summary": "Multi-level approval is not a status column. Notes on returns, rejections, step-based permissions and versioned configuration.",
+    "tags": ["Workflow", "RBAC", "Data modelling"],
+    "readingMinutes": 10,
+    "published": false
+  }
+]
