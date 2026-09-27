@@ -26,12 +26,5 @@
     "description": "Builds forms from configurable field definitions rather than hard-coded markup.",
     "stack": ["Django", "HTMX", "Tailwind CSS"],
     "relevance": "Configurable-schema UI, which is the shape of the multi-language survey platform built later at CodersBucket."
-  },
-  {
-    "name": "Restaurant Location Viewer",
-    "repo": "https://github.com/Jubayer-Hossain-Abir-404/restaurant-location-viewer-using-nextjs-react-material-ui-mapbox",
-    "description": "Map-based restaurant browser integrating a REST API with interactive Mapbox visualisation.",
-    "stack": ["Next.js", "React", "Material UI", "Mapbox"],
-    "relevance": "Third-party data and mapping integration with a responsive interface."
   }
 ]
